@@ -83,3 +83,20 @@ defined('EXIT_USER_INPUT')     OR define('EXIT_USER_INPUT', 7); // invalid user 
 defined('EXIT_DATABASE')       OR define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
+
+// PATH
+define('VENDOR_PATH', str_replace('application/', '', APPPATH) . 'vendor/');
+define('ROOT', str_replace('application/config', '', __DIR__));
+define('ASSETS_PATH', str_replace('application/', '', APPPATH) . 'public/assets/');
+
+define('JWT_AUTH', false);
+define('SYNC_DATAUSER', false);
+
+
+define('MYSQL_TIMESTAMP_FORMAT', 'Y-m-d H:i:s');
+define('MYSQL_DATE_FORMAT', 'Y-m-d');
+
+// EMAIL
+define('EMAIL_HOST', '');
+define('EMAIL_USER', '');
+define('EMAIL_PASS', '');
