@@ -43,14 +43,14 @@ if (!method_exists($this, 'waktu')) {
     }
 }
 if (!method_exists($this, 'config_sidebar')) {
-    function config_sidebar($configName = 'comp', $sidebar, int $activeMenu = 0, $subMenuConf = null)
+    function config_sidebar($sidebar, int $activeMenu = 0, $subMenuConf = null, $theme = 'dore')
     {
         /** @var CI_Controller $ci */
         $ci = &get_instance();
 
-        $ci->load->config($configName);
-        $compConf = $ci->config->item('comp');
-        $sidebarConf = $compConf['dore']['sidebar'][$sidebar];
+        $ci->load->config('component');
+        $compConf = $ci->config->item($theme);
+        $sidebarConf = $compConf['sidebar'][$sidebar];
         $sidebarConf['menus'][$activeMenu]['active'] = true;
 
         if (!empty($subMenuConf)) {
@@ -107,11 +107,6 @@ if (!method_exists($this, 'is_login')) {
         } elseif (!empty($userdata) && !empty($role) && empty($user)) {
             if (JWT_AUTH)
                 return $data['role'] == $role;
-            elseif (!JWT_AUTH && $role == 'bendahara')
-                return $userdata['role'] == 'bendahara 1' || $userdata['role'] == 'bendahara 2';
-            elseif (!JWT_AUTH && $role == 'admin')
-                return $userdata['role'] == 'admin';
-            elseif (!JWT_AUTH && $role != 'bendahara')
                 return $userdata['role'] == $role;
         } elseif (!empty($userdata) && empty($role) && !empty($user)) {
             if (JWT_AUTH)
