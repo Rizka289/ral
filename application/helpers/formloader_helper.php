@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+// metode baru (pemberian defaultValue dan petaNilai) belum di tes
 if(!method_exists($this,'field')){
     function fieldmapping($config, $input, $defaultValue = array(), $petaNilai = array()){
 
