@@ -43,19 +43,33 @@ if (!method_exists($this, 'waktu')) {
     }
 }
 if (!method_exists($this, 'config_sidebar')) {
-    function config_sidebar($sidebar, int $activeMenu = 0, $subMenuConf = null, $theme = 'dore')
+    function config_sidebar($sidebar, int $activeMenu = 0, $subMenuConf = 0, $theme = 'dore')
     {
         /** @var CI_Controller $ci */
         $ci = &get_instance();
 
         $ci->load->config('component');
-        $compConf = $ci->config->item($theme);
-        $sidebarConf = $compConf['sidebar'][$sidebar];
+        $compConf = $ci->config->item('comp');
+        $sidebarConf = $compConf[$theme]['sidebar'][$sidebar];
         $sidebarConf['menus'][$activeMenu]['active'] = true;
+        $sidebarActiveMenu = null;
+        $activeMenuLink = $sidebarConf['menus'][$activeMenu]['link'];
+        $subMenuActiveIndex = null;
+        if($activeMenuLink[0] == '#')
+            $sidebarActiveMenu = str_replace('#', '', $activeMenuLink);
 
-        if (!empty($subMenuConf)) {
-            $sidebarConf['subMenus'][$subMenuConf['sub']]['menus'][$subMenuConf['menu']]['active'] = true;
+        if(!empty($sidebarActiveMenu)){
+            $index = 0;
+            foreach($sidebarConf['subMenus'] as $subMenu){
+                if($subMenu['induk'] == $sidebarActiveMenu)
+                    $subMenuActiveIndex = $index;
+
+                $index++;
+            }
         }
+        if(!is_null($subMenuActiveIndex))
+            $sidebarConf['subMenus'][$subMenuActiveIndex]['menus'][$subMenuConf]['active'] = true;
+
         return $sidebarConf;
     }
 }
